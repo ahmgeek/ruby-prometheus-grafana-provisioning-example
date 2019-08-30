@@ -1,7 +1,8 @@
 require_relative "../model/transaction"
 
 class MemoryDb
-  TransactionNotFound = Class.new(StandardError)
+  TransactionNotFound   = Class.new(StandardError)
+  TransactionNotUnique  = Class.new(StandardError)
 
   def initialize
     self.store = []
@@ -23,11 +24,13 @@ class MemoryDb
   end
 
   def save(attrs)
-    transaction = Transaction.new(client_id: attrs.fetch(:client_id),
-                                  sender_iban: attrs.fetch(:sender_iban),
-                                  receiver_iban: attrs.fetch(:receiver_iban),
-                                  amount: attrs.fetch(:amount),
-                                  currency: attrs.fetch(:currency))
+    transaction = Transaction.new(client_id: attrs.fetch("client_id"),
+                                  sender_iban: attrs.fetch("sender_iban"),
+                                  receiver_iban: attrs.fetch("receiver_iban"),
+                                  amount: attrs.fetch("amount"),
+                                  currency: attrs.fetch("currency"))
+
+    raise TransactionNotUnique unless unique?(transaction)
     store << transaction
     transaction
   end
@@ -36,6 +39,11 @@ class MemoryDb
   end
 
   private
+
+  def unique?(transaction)
+    transaction = find(uid: transaction.uid) rescue nil
+    true unless transaction
+  end
 
   attr_accessor :store
 end

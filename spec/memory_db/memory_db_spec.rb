@@ -11,6 +11,13 @@ RSpec.describe MemoryDb do
                                 receiver_iban: "AT01020423043404",
                                 amount: 200.23,
                                 currency: "EUR" } }
+
+    let(:unique_transaction) do
+      tr = transaction_attrs.clone
+      tr.delete(:uid)
+      tr
+    end
+
     let(:transaction_model) { Transaction.new(transaction_attrs) }
 
     it "initializes an empty store" do
@@ -40,6 +47,18 @@ RSpec.describe MemoryDb do
     end
 
     it "deletes specific transaction"
-    it "returns all transactions"
+
+    it "returns all transactions" do
+      3.times { subject.save(unique_transaction) }
+
+      expect(subject.all.size).to be 3
+    end
+
+    it "stores only unique transactions" do
+      tr_1 = tr_2 = transaction_attrs
+      subject.save(tr_1)
+
+      expect { subject.save(tr_2) }.not_to raise_error
+    end
   end
 end

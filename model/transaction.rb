@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'json'
 
 class Transaction
   attr_reader :uid, :client_id, :sender_iban, :receiver_iban, :amount, :currency
@@ -12,7 +13,7 @@ class Transaction
     @currency       = currency
   end
 
-  def transactions
+  def to_h
     {
       uid: @uid,
       client_id: @client_id,

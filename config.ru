@@ -1,4 +1,4 @@
-require_relative"./api"
+require_relative"./api/api"
 
 app = Rack::Builder.new do
   map "/" do
