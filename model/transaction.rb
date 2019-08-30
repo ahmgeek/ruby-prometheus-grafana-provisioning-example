@@ -1,10 +1,10 @@
 require 'securerandom'
 
 class Transaction
-  attr_reader :client_id, :sender_iban, :receiver_iban, :amount, :currency
+  attr_reader :uid, :client_id, :sender_iban, :receiver_iban, :amount, :currency
 
-  def initialize(client_id:, sender_iban:, receiver_iban:, amount:, currency:)
-    @uid            = SecureRandom.uuid
+  def initialize(uid: SecureRandom.uuid, client_id:, sender_iban:, receiver_iban:, amount:, currency:)
+    @uid            = uid
     @client_id      = client_id
     @sender_iban    = sender_iban
     @receiver_iban  = receiver_iban

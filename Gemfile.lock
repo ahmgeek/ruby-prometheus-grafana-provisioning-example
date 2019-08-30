@@ -1,10 +1,24 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.3)
     nio4r (2.5.1)
     puma (4.1.0)
       nio4r (~> 2.0)
     rack (2.0.7)
+    rspec (3.8.0)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
+    rspec-core (3.8.2)
+      rspec-support (~> 3.8.0)
+    rspec-expectations (3.8.4)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.8.0)
+    rspec-mocks (3.8.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.8.0)
+    rspec-support (3.8.2)
     seg (1.2.0)
     syro (3.1.1)
       rack (>= 1.6.0)
@@ -16,6 +30,7 @@ PLATFORMS
 DEPENDENCIES
   puma
   rack
+  rspec
   syro
 
 BUNDLED WITH
