@@ -1,4 +1,4 @@
-require_relative "../model/transaction"
+require_relative "../models/transaction"
 
 class MemoryDb
   TransactionNotFound   = Class.new(StandardError)

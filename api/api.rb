@@ -1,14 +1,18 @@
 require "syro"
 require "json"
 
+
 require_relative "../repositories/memory_db"
 
 DB = MemoryDb.new
 
 API = Syro.new do
+  get do
+    res.write "OK"
+  end
+
   on "transactions" do
     get do
-      res[Rack::CONTENT_TYPE] = "application/json"
       all_transactions = TransactionService.all
 
       res.json JSON.dump(all_transactions.map(&:to_h))
@@ -22,7 +26,6 @@ API = Syro.new do
     end
   end
 end
-
 
 class TransactionService
   def self.all

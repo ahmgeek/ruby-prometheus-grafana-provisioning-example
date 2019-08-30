@@ -28,7 +28,6 @@ services:
     container_name: redis
     ports:
     - 6379:6379
-
   grafana:
     image: grafana/grafana
     ports:
@@ -37,3 +36,8 @@ services:
       - prometheus
     volumes:
       - ./docker/provisioning/:/etc/grafana/provisioning/datasources
+  erste_app:
+    image: erste:port_changed
+    ports:
+      - 5500:5500
+    container_name: ruby_app
