@@ -27,7 +27,6 @@ RSpec.describe MemoryDb do
       result = subject.save(transaction_attrs)
       tr = subject.find(uid: result.uid)
 
-
       expect(tr.client_id).to eq transaction_attrs[:client_id]
       expect(tr.sender_iban).to eq transaction_attrs[:sender_iban]
       expect(tr.receiver_iban).to eq transaction_attrs[:receiver_iban]
@@ -35,8 +34,12 @@ RSpec.describe MemoryDb do
       expect(tr.currency).to eq transaction_attrs[:currency]
     end
 
-    it "returns all transactions"
-    it "finds specific transaction"
+
+    it "finds specific transaction" do
+      expect { subject.find(uid: "foo") }.to raise_error
+    end
+
     it "deletes specific transaction"
+    it "returns all transactions"
   end
 end

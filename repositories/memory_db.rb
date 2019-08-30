@@ -16,11 +16,10 @@ class MemoryDb
 
     store.each do |tr|
       transaction = tr if tr.uid == uid
-      break if transaction
+      return transaction if transaction
     end
 
     raise TransactionNotFound unless transaction
-    transaction
   end
 
   def save(attrs)
