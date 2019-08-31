@@ -32,15 +32,15 @@ class MemoryDb
     transaction
   end
 
+  def update(uid:, attr:)
+    transaction = find(uid: uid)
+    transaction.update(attr)
+    transaction
+  end
+
   def delete(uid:)
-    transaction = nil
-    store.each do |tr|
-      transaction = tr if tr.uid == uid
-      if transaction
-        store.delete(tr)
-        break
-      end
-    end
+    transaction = find(uid: uid)
+    store.delete(transaction)
   end
 
   private

@@ -8,6 +8,11 @@ RSpec.describe MemoryDb do
 
     let(:uid) { "8e8004b8-d91d-4d57-b7a4-605ad926fff7" }
     let(:transaction) { build(:transaction, uid: uid).to_h }
+    let(:new_transaction) do
+      tr = build(:transaction).to_h
+      tr.delete(:uid)
+      tr
+    end
 
     it "initializes an empty store" do
       expect(subject).to be_a MemoryDb
@@ -54,6 +59,24 @@ RSpec.describe MemoryDb do
       subject.delete(uid: tr.uid)
 
       expect(subject.all.size).to eq 4
+    end
+
+    it "updates transaction" do
+      tr = subject.save(transaction)
+
+      expect do
+        subject.update(uid: tr.uid, attr: new_transaction)
+      end.not_to raise_error
+
+      expect(subject.find(uid: tr.uid).to_h).to include(client_id: new_transaction[:client_id])
+      expect(subject.find(uid: tr.uid).to_h).to include(sender_iban: new_transaction[:sender_iban])
+      expect(subject.find(uid: tr.uid).to_h).to include(amount: new_transaction[:amount])
+    end
+
+    it "raises an error on update if transaction is not found" do
+      subject.save(transaction)
+
+      expect { subject.update(uid: "i-do-not-exist", attr: transaction) }.to raise_error(/NotFound/)
     end
 
     it "deletes correct transaction" do

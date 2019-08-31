@@ -17,6 +17,12 @@ RSpec.describe Transaction do
       }
     end
 
+    let(:new_transaction) do
+      tr = build(:transaction).to_h
+      tr.delete(:uid)
+      tr
+    end
+
     it "initializes Transaction correctly" do
       expect { transaction }.not_to raise_error
     end
@@ -34,6 +40,14 @@ RSpec.describe Transaction do
 
     it "returns correct hash" do
       expect(transaction.to_h).to eq to_h
+    end
+
+    it "updates transaction" do
+      transaction.update(new_transaction)
+      expect(transaction.client_id).to eq new_transaction.fetch(:client_id)
+      expect(transaction.sender_iban).to eq new_transaction.fetch(:sender_iban)
+      expect(transaction.receiver_iban).to eq new_transaction.fetch(:receiver_iban)
+      expect(transaction.amount).to eq new_transaction.fetch(:amount)
     end
   end
 end
