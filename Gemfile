@@ -1,16 +1,21 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
-gem 'rack'
-gem 'puma'
-gem 'syro'
-gem 'prometheus-client'
+gem "prometheus-client"
+gem "puma"
+gem "rack"
+gem "syro"
 
 group :development do
-  gem 'shotgun'
-  gem 'rubocop'
-  gem 'pry'
+  gem "pry"
+  gem "rt_rubocop_defaults", require: false
+  gem "rubocop_runner", "~> 2.1", require: false
+  gem "shotgun"
 end
 
 group :test do
-  gem 'rspec'
+  gem "factory_bot"
+  gem "faker"
+  gem "rspec"
 end
