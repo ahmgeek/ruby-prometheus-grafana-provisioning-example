@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "../../use_cases/transaction"
-
 RSpec.describe UseCases::Transaction do
-  subject { described_class }
+  subject { described_class.new }
 
   let(:transaction) { build(:transaction) }
 
@@ -25,15 +23,15 @@ RSpec.describe UseCases::Transaction do
 
   context ".saves" do
     it "saves a transaction" do
-      expect(subject::DB).to receive(:save).with(transaction_attr).and_return(transaction)
+      expect(subject).to receive(:save).with(transaction_attr).and_return(transaction)
       subject.save(transaction_attr)
     end
   end
 
   context ".all" do
     it "gets all transactions" do
-      expect(subject::DB).to receive(:save).with(transaction_attr).and_return(transaction)
-      expect(subject::DB).to receive(:all).and_return([transaction])
+      expect(subject).to receive(:save).with(transaction_attr).and_return(transaction)
+      expect(subject).to receive(:all).and_return([transaction])
       subject.save(transaction_attr)
       subject.all
     end
@@ -41,9 +39,9 @@ RSpec.describe UseCases::Transaction do
 
   context ".update" do
     it "updates transaction" do
-      expect(subject::DB).to receive(:save).with(transaction_attr).and_return(transaction)
-      expect(subject::DB).to receive(:update).with(uid:  transaction.uid,
-                                                   attr: update_attr).and_return(updated_transaction)
+      expect(subject).to receive(:save).with(transaction_attr).and_return(transaction)
+      expect(subject).to receive(:update).with(uid:  transaction.uid,
+                                               attr: update_attr).and_return(updated_transaction)
 
       subject.save(transaction_attr)
       subject.update(uid: transaction.uid, attr: update_attr)
@@ -52,8 +50,8 @@ RSpec.describe UseCases::Transaction do
 
   context ".find" do
     it "finds a transaction" do
-      expect(subject::DB).to receive(:save).with(transaction_attr).and_return(transaction)
-      expect(subject::DB).to receive(:find).with(uid: transaction.uid).and_return(transaction)
+      expect(subject).to receive(:save).with(transaction_attr).and_return(transaction)
+      expect(subject).to receive(:find).with(uid: transaction.uid).and_return(transaction)
 
       subject.save(transaction_attr)
       subject.find(uid: transaction.uid)
@@ -62,8 +60,8 @@ RSpec.describe UseCases::Transaction do
 
   context ".delete" do
     it "deletes a transaction" do
-      expect(subject::DB).to receive(:save).with(transaction_attr).and_return(transaction)
-      expect(subject::DB).to receive(:delete).with(uid: transaction.uid).and_return(true)
+      expect(subject).to receive(:save).with(transaction_attr).and_return(transaction)
+      expect(subject).to receive(:delete).with(uid: transaction.uid).and_return(true)
 
       subject.save(transaction_attr)
       subject.delete(uid: transaction.uid)

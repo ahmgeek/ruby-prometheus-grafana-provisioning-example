@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "syro"
 require "json"
 
+require_relative "../lib/use_cases/transaction"
 
-require_relative "../repositories/memory_db"
-
-DB = MemoryDb.new
+# Initializing the business logic object
+TransactionService = UseCases::Transaction.new
 
 API = Syro.new do
   get do
@@ -15,7 +17,7 @@ API = Syro.new do
     get do
       all_transactions = TransactionService.all
 
-      res.json JSON.dump(all_transactions.map(&:to_h))
+      res.json JSON.dump(all_transactions)
     end
 
     post do
@@ -24,15 +26,5 @@ API = Syro.new do
       transaction = TransactionService.save(attrs)
       res.json JSON.dump(transaction.to_h)
     end
-  end
-end
-
-class TransactionService
-  def self.all
-    DB.all
-  end
-
-  def self.save(attrs)
-    DB.save(attrs)
   end
 end

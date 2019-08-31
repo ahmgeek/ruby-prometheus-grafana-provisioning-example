@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-require_relative "../../models/transaction"
-
 RSpec.describe Transaction do
   context "#initialize" do
     let(:transaction) { build(:transaction, uid: uid) }
     let(:uid) { "123-654-abc" }
     let(:to_h) do
       {
-        uid:           transaction.uid,
-        sender_iban:   transaction.sender_iban,
-        receiver_iban: transaction.receiver_iban,
-        currency:      transaction.currency,
-        amount:        transaction.amount,
-        client_id:     transaction.client_id
+        "uid"           => transaction.uid,
+        "client_id"     => transaction.client_id,
+        "sender_iban"   => transaction.sender_iban,
+        "receiver_iban" => transaction.receiver_iban,
+        "amount"        => transaction.amount,
+        "currency"      => transaction.currency
       }
     end
 
@@ -33,7 +31,7 @@ RSpec.describe Transaction do
 
     it "raises error with missing sender_iban" do
       attr = transaction.to_h
-      attr.delete(:sender_iban)
+      attr.delete("sender_iban")
 
       expect { Transaction.new(transaction: attr) }.to raise_error(/sender_iban/)
     end
@@ -44,10 +42,10 @@ RSpec.describe Transaction do
 
     it "updates transaction" do
       transaction.update(new_transaction)
-      expect(transaction.client_id).to eq new_transaction.fetch(:client_id)
-      expect(transaction.sender_iban).to eq new_transaction.fetch(:sender_iban)
-      expect(transaction.receiver_iban).to eq new_transaction.fetch(:receiver_iban)
-      expect(transaction.amount).to eq new_transaction.fetch(:amount)
+      expect(transaction.client_id).to eq new_transaction.fetch("client_id")
+      expect(transaction.sender_iban).to eq new_transaction.fetch("sender_iban")
+      expect(transaction.receiver_iban).to eq new_transaction.fetch("receiver_iban")
+      expect(transaction.amount).to eq new_transaction.fetch("amount")
     end
   end
 end

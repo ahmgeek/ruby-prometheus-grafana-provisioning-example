@@ -9,6 +9,6 @@ FactoryBot.define do
     amount { Faker::Number.decimal(l_digits: 3, r_digits: 3) }
     currency { Faker::Currency.code }
 
-    initialize_with { new(transaction: attributes) }
+    initialize_with { new(transaction: attributes.stringify_keys) }
   end
 end

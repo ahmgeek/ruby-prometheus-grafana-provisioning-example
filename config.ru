@@ -1,9 +1,8 @@
-require_relative"./api/api"
+# frozen_string_literal: true
 
-require 'prometheus/middleware/exporter'
+require_relative "./api/api"
+
 app = Rack::Builder.new do
-  use Prometheus::Middleware::Exporter
-
   map "/" do
     run API
   end

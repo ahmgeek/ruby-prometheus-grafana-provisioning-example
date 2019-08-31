@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../repositories/memory_db"
-
 RSpec.describe MemoryDb do
   context "#initialize" do
     subject { described_class.new }
@@ -28,11 +26,11 @@ RSpec.describe MemoryDb do
       result = subject.save(transaction)
       tr = subject.find(uid: result.uid)
 
-      expect(tr.client_id).to eq transaction[:client_id]
-      expect(tr.sender_iban).to eq transaction[:sender_iban]
-      expect(tr.receiver_iban).to eq transaction[:receiver_iban]
-      expect(tr.amount).to eq transaction[:amount]
-      expect(tr.currency).to eq transaction[:currency]
+      expect(tr.client_id).to eq transaction["client_id"]
+      expect(tr.sender_iban).to eq transaction["sender_iban"]
+      expect(tr.receiver_iban).to eq transaction["receiver_iban"]
+      expect(tr.amount).to eq transaction["amount"]
+      expect(tr.currency).to eq transaction["currency"]
     end
 
     it "finds specific transaction" do
@@ -68,9 +66,9 @@ RSpec.describe MemoryDb do
         subject.update(uid: tr.uid, attr: new_transaction)
       end.not_to raise_error
 
-      expect(subject.find(uid: tr.uid).to_h).to include(client_id: new_transaction[:client_id])
-      expect(subject.find(uid: tr.uid).to_h).to include(sender_iban: new_transaction[:sender_iban])
-      expect(subject.find(uid: tr.uid).to_h).to include(amount: new_transaction[:amount])
+      expect(subject.find(uid: tr.uid).to_h).to include("client_id"   => new_transaction["client_id"])
+      expect(subject.find(uid: tr.uid).to_h).to include("sender_iban" => new_transaction["sender_iban"])
+      expect(subject.find(uid: tr.uid).to_h).to include("amount"      => new_transaction["amount"])
     end
 
     it "raises an error on update if transaction is not found" do
