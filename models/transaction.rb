@@ -33,7 +33,7 @@ class Transaction
 
   def update(attrs)
     self.client_id      = attrs.fetch(:client_id)
-    self.sender_iban    = attrs.fetch(:sender_iban) 
+    self.sender_iban    = attrs.fetch(:sender_iban)
     self.receiver_iban  = attrs.fetch(:receiver_iban)
     self.amount         = attrs.fetch(:amount)
     self.currency       = attrs.fetch(:currency)
