@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../models/transaction"
 
 class MemoryDb
@@ -24,26 +26,24 @@ class MemoryDb
   end
 
   def save(attrs)
-    transaction = Transaction.new(client_id: attrs.fetch("client_id"),
-                                  sender_iban: attrs.fetch("sender_iban"),
-                                  receiver_iban: attrs.fetch("receiver_iban"),
-                                  amount: attrs.fetch("amount"),
-                                  currency: attrs.fetch("currency"))
+    transaction = Transaction.new(transaction: attrs)
 
-    raise TransactionNotUnique unless unique?(transaction)
     store << transaction
     transaction
   end
 
   def delete(uid:)
+    transaction = nil
+    store.each do |tr|
+      transaction = tr if tr.uid == uid
+      if transaction
+        store.delete(tr)
+        break
+      end
+    end
   end
 
   private
-
-  def unique?(transaction)
-    transaction = find(uid: transaction.uid) rescue nil
-    true unless transaction
-  end
 
   attr_accessor :store
 end
