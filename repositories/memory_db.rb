@@ -41,6 +41,7 @@ class MemoryDb
   def delete(uid:)
     transaction = find(uid: uid)
     store.delete(transaction)
+    true
   end
 
   private
