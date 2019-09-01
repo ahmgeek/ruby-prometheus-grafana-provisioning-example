@@ -8,7 +8,7 @@ services:
     command:
     - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-    - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
     - cadvisor
   cadvisor:
@@ -29,13 +29,14 @@ services:
     ports:
     - 6379:6379
   grafana:
-    image: grafana/grafana
+    build: grafana
     ports:
     - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=123456
     depends_on:
       - prometheus
-    volumes:
-      - ./monitoring/provisioning/:/etc/grafana/provisioning/datasources
   erste_app:
     build: .
     ports:
