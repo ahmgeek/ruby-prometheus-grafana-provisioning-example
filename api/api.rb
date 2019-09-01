@@ -6,8 +6,6 @@ require "json"
 require_relative "../lib/use_cases/transaction"
 require_relative "../lib/errors/handler"
 
-require "pry"
-
 # Initializing the business logic object
 TransactionService = UseCases::Transaction.new
 
