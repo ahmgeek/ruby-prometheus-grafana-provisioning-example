@@ -4,15 +4,6 @@ require_relative "../repositories/memory_db"
 
 module UseCases
   class Transaction
-    class ErrorHandler
-      def initialize(error)
-        {
-          "error": error,
-          status:  404
-        }
-      end
-    end
-
     def initialize
       self.store = MemoryDb.new
     end
