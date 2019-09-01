@@ -33,6 +33,8 @@ GEM
       nio4r (~> 2.0)
     quantile (0.2.1)
     rack (2.0.7)
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -80,6 +82,7 @@ DEPENDENCIES
   pry
   puma
   rack
+  rack-test
   rspec
   rt_rubocop_defaults
   rubocop_runner (~> 2.1)

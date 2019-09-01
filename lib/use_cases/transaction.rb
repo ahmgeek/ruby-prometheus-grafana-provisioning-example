@@ -4,6 +4,15 @@ require_relative "../repositories/memory_db"
 
 module UseCases
   class Transaction
+    class ErrorHandler
+      def initialize(error)
+        {
+          "error": error,
+          status:  404
+        }
+      end
+    end
+
     def initialize
       self.store = MemoryDb.new
     end
@@ -13,19 +22,23 @@ module UseCases
     end
 
     def save(transaction)
-      store.save(transaction)
+      transaction = store.save(transaction)
+      transaction.to_h
     end
 
     def update(uid:, attr:)
-      store.update(uid: uid, attr: attr)
+      transaction = store.update(uid: uid, attr: attr)
+      transaction.to_h
     end
 
     def find(uid:)
-      store.find(uid: uid)
+      transaction = store.find(uid: uid)
+      transaction.to_h
     end
 
     def delete(uid:)
       store.delete(uid: uid)
+      true
     end
 
     private

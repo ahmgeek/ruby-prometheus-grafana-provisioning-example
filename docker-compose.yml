@@ -35,9 +35,9 @@ services:
     depends_on:
       - prometheus
     volumes:
-      - ./docker/provisioning/:/etc/grafana/provisioning/datasources
+      - ./monitoring/provisioning/:/etc/grafana/provisioning/datasources
   erste_app:
-    image: erste:port_changed
+    build: .
     ports:
       - 5500:5500
     container_name: ruby_app

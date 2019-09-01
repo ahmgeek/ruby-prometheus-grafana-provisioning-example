@@ -3,8 +3,7 @@
 require_relative "../models/transaction"
 
 class MemoryDb
-  TransactionNotFound   = Class.new(StandardError)
-  TransactionNotUnique  = Class.new(StandardError)
+  TransactionNotFound = Class.new(StandardError)
 
   def initialize
     self.store = []
@@ -41,7 +40,6 @@ class MemoryDb
   def delete(uid:)
     transaction = find(uid: uid)
     store.delete(transaction)
-    true
   end
 
   private

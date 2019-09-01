@@ -4,10 +4,13 @@ require "securerandom"
 require "factory_bot"
 require "faker"
 require "pry"
+require "rack/test"
 
 require_relative "../lib/repositories/memory_db"
 require_relative "../lib/models/transaction"
 require_relative "../lib/use_cases/transaction"
+
+require_relative "../api/api"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
