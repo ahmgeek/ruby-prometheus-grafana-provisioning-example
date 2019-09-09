@@ -1,5 +1,3 @@
-# Optimized with the help of Martin & Dominik
-
 FROM ruby:2.5.3
 
 RUN gem install bundler
