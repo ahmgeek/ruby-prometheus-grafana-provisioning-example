@@ -37,7 +37,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=123456
     depends_on:
       - prometheus
-  erste_app:
+  ruby_app:
     build: .
     ports:
       - 5500:5500
