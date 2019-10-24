@@ -30,21 +30,21 @@ API = Syro.new do
     on :uid do
       # GET /transactions/:uid
       get do
-        uid         = inbox[:uid]
+        uid = inbox[:uid]
         transaction = TransactionService.find(uid: uid)
         res.json JSON.dump(transaction)
       end
 
       # PUT /transactions/:uid
       put do
-        uid         = inbox[:uid]
+        uid = inbox[:uid]
         attr = JSON.parse(req.body.read)
         res.json JSON.dump(TransactionService.update(uid: uid, attr: attr))
       end
 
       # DELETE /transactions/:uid
       delete do
-        uid     = inbox[:uid]
+        uid = inbox[:uid]
         deleted = TransactionService.delete(uid: uid)
         res.write "" if deleted
       end
